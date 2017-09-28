@@ -1,0 +1,28 @@
+.Leaderboard {
+  background: white;
+  width: 100%;
+  padding: 0px;
+  border-collapse: collapse;
+}
+
+
+.Leaderboard thead tr th {
+  background: hsl(199, 75%, 54%);
+  cursor: pointer;
+  padding: 10px;
+  border-right: 1px solid #e5e5e5;
+  color: white;
+}
+
+.Leaderboard thead tr th.active {
+  background: rgb(153,204,51);
+}
+
+.Leaderboard tbody tr td {
+  border-bottom: 2px solid #e5e5e5;
+}
+
+.Leaderboard tr td {
+  text-align: center;
+  padding: 10px 5px;
+}

@@ -6,15 +6,17 @@ const app = express()
 
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
+app.get('/results', (req, res) => {
   return res.sendFile(__dirname + '/results.json')
 })
 
-app.post('/', (req, res) => {
+app.post('/results', (req, res) => {
   console.log(req.body)
   fs.writeFileSync('results.json', JSON.stringify(req.body))
   return res.json(req.body)
 })
+
+app.use(express.static(__dirname + '/client/build'))
 
 
 app.listen(PORT, (server) => {

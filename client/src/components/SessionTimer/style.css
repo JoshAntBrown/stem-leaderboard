@@ -1,0 +1,26 @@
+.SessionTimer {
+  margin-top: 20px;
+  display: flex;
+}
+
+
+.SessionTimer input {
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-right: 0;
+  flex: 1;
+}
+
+.SessionTimer button {
+  padding: 11px;
+  background: rgb(153,204,51);
+  border: 1px solid #e5e5e5;
+  border-left: 0;
+  color: white;
+  cursor: pointer;
+}
+
+.SessionTimer h1 {
+  text-align: center;
+  flex: 1;
+}
