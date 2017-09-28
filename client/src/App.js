@@ -1,6 +1,9 @@
 import React from 'react'
 import Leaderboard from './components/Leaderboard'
 import SessionTimer from './components/SessionTimer'
+import AceEditor from 'react-ace'
+import 'brace/mode/json'
+import 'brace/theme/github'
 import './style.css'
 
 class App extends React.Component {
@@ -8,14 +11,16 @@ class App extends React.Component {
     super()
 
     this.state = {
-      results: []
+      results: [],
+      editMode: false,
     }
 
     fetch('/results')
       .then(res => res.json())
       .then(results => {
         this.setState({
-          results
+          results,
+          nextResults: JSON.stringify(results, null, 4)
         })
       })
   }
@@ -36,9 +41,65 @@ class App extends React.Component {
           <h1>Leaderboard</h1>
         </header>
         <section>
-          <Leaderboard
-            results={this.state.results}
-          />
+          {
+            (this.state.editMode) ? (
+              <div>
+                <AceEditor
+                  mode="json"
+                  theme="github"
+                  width="100%"
+                  onChange={(nextResults) => {
+                    this.setState({
+                      nextResults
+                    })
+                  }}
+                  name="editor"
+                  value={this.state.nextResults}
+                  editorProps={{$blockScrolling: true}}
+                />
+
+                <button
+                  className="App_Button App_Button-save"
+                  onClick={e => {
+                    this.setState({
+                      results: JSON.parse(this.state.nextResults),
+                      editMode: false,
+                    })
+
+                    fetch('/results', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: this.state.nextResults,
+                    })
+                      .then(res => res.json())
+                      .then(results => {
+                        alert('Saved!')
+                      })
+                  }}
+                >
+                  Save
+                </button>
+              </div>
+            ) : (
+              <div>
+                <Leaderboard
+                  results={this.state.results}
+                />
+                <button
+                  className="App_Button App_Button-edit"
+                  onClick={e => {
+                    this.setState({
+                      editMode: true
+                    })
+                  }}
+                >
+                  Edit Leaderboard
+                </button>
+              </div>
+            )
+          }
         </section>
         <footer>
           <SessionTimer />

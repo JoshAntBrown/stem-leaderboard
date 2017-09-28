@@ -5,3 +5,21 @@ body {
 .App {
   padding: 50px;
 }
+
+.App_Button {
+  background:#9c3;
+  color: white;
+  border: 0;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.App_Button-edit {
+  width: 100%;
+  text-align: center;
+}
+
+.App_Button-save {
+  width: 100%;
+  text-align: center;
+}
